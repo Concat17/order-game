@@ -3,22 +3,20 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import React from "react";
 
-const StyledImage = styled(Image)<{ align: string }>`
+const StyledImage = styled(Image)<{ align?: string }>`
   border: none;
   background-color: "transparent";
   transform: translate(0, 0);
-
-  align-self: ${(props) => props.align};
 `;
 
-type ElementProps = {
+type OrderElementProps = {
   id: string;
-  align: string;
+  align?: string;
 };
 
-export const Element = ({ id, align }: ElementProps) => {
+export const OrderElement = ({ id, align }: OrderElementProps) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggable" + id,
+    id: id,
   });
   const style = transform
     ? {
@@ -26,15 +24,13 @@ export const Element = ({ id, align }: ElementProps) => {
       }
     : undefined;
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      <StyledImage
-        priority
-        src="/images/cookie-element-1.png"
-        width={150}
-        height={150}
-        align={align}
-        alt=""
-      />
+    <div
+      ref={setNodeRef}
+      style={{ width: "150px", height: "150px", ...style }}
+      {...listeners}
+      {...attributes}
+    >
+      <StyledImage priority src="/images/cookie-element-1.png" fill alt="" />
     </div>
   );
 };

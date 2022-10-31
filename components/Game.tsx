@@ -9,8 +9,10 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 
-import { Element } from "./Element";
+import { OrderElement } from "./OrderElement";
 import { OrderPanel } from "./OrderPanel";
+import { useAppDispatch, useAppSelector } from "../redux";
+import { putElementToCell, selectElements } from "../redux/reducers";
 
 const Page = styled.div`
   position: relative;
@@ -42,17 +44,33 @@ const ImageContainer = styled.div<{
 `;
 
 export const Game = () => {
+  const elements = useAppSelector(selectElements);
+
+  const dispatch = useAppDispatch();
+
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
 
   const sensors = useSensors(mouseSensor, touchSensor);
+
   function handleDragEnd(event: DragEndEvent) {
-    const { over } = event;
+    const { over, active, activatorEvent } = event;
 
     // If the item is dropped over a container, set it as the parent
     // otherwise reset the parent to `null`
-
+    console.log("active", active);
+    console.log(activatorEvent);
     console.log(over ? over.id : null);
+
+    if (over) {
+      console.log("put");
+      dispatch(
+        putElementToCell({
+          cellId: over.id.toString(),
+          elementId: active.id.toString(),
+        })
+      );
+    }
   }
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
@@ -99,11 +117,19 @@ export const Game = () => {
               zIndex: 1,
             }}
           >
-            <Element id={"1"} align={"center"} />
-            <Element id={"2"} align={"start"} />
-            <Element id={"3"} align={"end"} />
-            <Element id={"4"} align={"start"} />
-            <Element id={"5"} align={"center"} />
+            {elements.map(({ id, inCell }) => (
+              <div
+                key={id}
+                style={{
+                  position: "relative",
+                  width: "150px",
+                  height: "150px",
+                  visibility: inCell ? "hidden" : "unset",
+                }}
+              >
+                <OrderElement id={id} align={"center"} />
+              </div>
+            ))}
           </div>
           <OrderPanel />
         </div>

@@ -1,34 +1,41 @@
 import { useDroppable } from "@dnd-kit/core";
 import styled from "@emotion/styled";
 import Image from "next/image";
+import { useAppSelector } from "../redux";
+import { selectCells } from "../redux/reducers";
+import { OrderCell } from "../redux/reducers";
 
 const StyledImage = styled(Image)`
   border-radius: 10px;
 `;
 
-type ElementPlaceProps = {
-  id: string;
-};
+type OrderCellProps = OrderCell;
 
-const ElementPlace = ({ id }: ElementPlaceProps) => {
+const OrderCell = ({ id, elementId }: OrderCellProps) => {
   const { setNodeRef } = useDroppable({
-    id: "droppable" + id,
+    id: id,
   });
   return (
     <div
       ref={setNodeRef}
       style={{
+        position: "relative",
         borderRadius: "9999px",
         width: "130px",
         height: "130px",
         background: "rgba(0, 0, 0, 0.06)",
         boxShadow: "inset 0px 4px 25px rgba(0, 0, 0, 0.25)",
       }}
-    />
+    >
+      {elementId && (
+        <StyledImage priority src="/images/cookie-element-1.png" fill alt="" />
+      )}
+    </div>
   );
 };
 
 export const OrderPanel = () => {
+  const cells = useAppSelector(selectCells);
   return (
     <div
       style={{
@@ -56,12 +63,9 @@ export const OrderPanel = () => {
         fill
         alt=""
       />
-      <ElementPlace id={"1"} />
-      <ElementPlace id={"2"} />
-      <ElementPlace id={"3"} />
-      <ElementPlace id={"4"} />
-      <ElementPlace id={"5"} />
-      <ElementPlace id={"6"} />
+      {cells.map(({ id, elementId }) => (
+        <OrderCell key={id} id={id} elementId={elementId} />
+      ))}
     </div>
   );
 };
