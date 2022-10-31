@@ -1,13 +1,13 @@
 import { shuffle } from "../../utils";
 
 export const generateOrder = (
-  range: number | string,
   count: number,
-  sort: "ascending" | "descending"
+  sort: "ascending" | "descending",
+  range?: number
 ) => {
-  const rangeValues = generateRange(range);
+  const values = range ? generateNumbersRange(range) : generateLettersRange();
 
-  const shuffledNumbers = shuffle(rangeValues);
+  const shuffledNumbers = shuffle<number | string>(values);
   const pickedValues = shuffledNumbers.slice(0, count);
 
   return sort === "ascending"
@@ -15,14 +15,13 @@ export const generateOrder = (
     : pickedValues.sort().reverse();
 };
 
-const generateRange = (range: string | number) => {
-  if (typeof range === "number") {
-    const start = 1;
-    const end = range;
+const generateNumbersRange = (range: number) => {
+  const start = 1;
+  const end = range;
 
-    return Array.from({ length: end - start + 1 }, (_, i) => i + 1);
-  }
+  return Array.from({ length: end - start + 1 }, (_, i) => i + 1);
+};
+const generateLettersRange = () => {
   const alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-  const letters = alphabet.split("");
-  return letters;
+  return alphabet.split("");
 };

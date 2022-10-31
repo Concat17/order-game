@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-import Image from "next/image";
 import {
   DndContext,
   DragEndEvent,
@@ -18,35 +16,7 @@ import {
   selectElements,
 } from "../redux/reducers";
 import { useEffect } from "react";
-
-const Page = styled.div`
-  position: relative;
-  height: 100vh;
-  color: turquoise;
-  background-color: #dec6aa;
-`;
-
-const StyledImage = styled(Image)`
-  border-radius: 10px;
-`;
-//TODO: make reponsive width and height
-const ImageContainer = styled.div<{
-  width?: string;
-  height?: string;
-  top?: string;
-  right?: string;
-  bottom?: string;
-  left?: string;
-}>`
-  position: absolute;
-
-  width: ${(props) => (props.width ? props.width : "600px")};
-  height: ${(props) => (props.height ? props.height : "600px")};
-  top: ${(props) => (props.top ? props.top : "unset")};
-  right: ${(props) => (props.right ? props.right : "unset")};
-  bottom: ${(props) => (props.bottom ? props.bottom : "unset")};
-  left: ${(props) => (props.left ? props.left : "unset")};
-`;
+import { Page } from "./Page";
 
 export const Game = () => {
   const elements = useAppSelector(selectElements);
@@ -76,31 +46,12 @@ export const Game = () => {
   }
 
   useEffect(() => {
-    dispatch(generateGame({ count: 5, range: "9", sort: "ascending" }));
+    dispatch(generateGame({ count: 5, range: 9, sort: "ascending" }));
   }, [dispatch]);
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <Page>
-        <ImageContainer top={"0"} left={"0"}>
-          <StyledImage
-            draggable="false"
-            priority
-            src="/images/cookie-left-bg.png"
-            fill
-            alt=""
-          />
-        </ImageContainer>
-        <ImageContainer top={"0"} right={"0"} width="400px" height="450px">
-          <StyledImage
-            draggable="false"
-            priority
-            src="/images/cookie-right-bg.png"
-            fill
-            alt=""
-          />
-        </ImageContainer>
-        {/* TODO: radial-gradient doen't work properly */}
         <div
           style={{
             display: "flex",

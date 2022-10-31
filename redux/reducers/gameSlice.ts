@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UITheme } from "../../types";
 import { shuffle } from "../../utils";
 import { RootState } from "../store";
 import { generateOrder } from "../utils";
+import { chooseUITheme } from "../utils/chooseUITheme";
 
 export type OrderCellType = {
   id: string;
@@ -17,7 +19,7 @@ export type OrderElementType = {
 };
 
 export type GameParams = {
-  range: string | number;
+  range?: number;
   count: number;
   sort: "ascending" | "descending";
 };
@@ -26,6 +28,7 @@ interface GameState {
   cells: OrderCellType[];
   elements: OrderElementType[];
   order: Array<string | number>;
+  theme: UITheme;
 }
 
 // const initialState: GameState = {
@@ -46,7 +49,12 @@ interface GameState {
 //   order: [1, 2, 3, 4, 5],
 // };
 
-const initialState: GameState = { cells: [], elements: [], order: [] };
+const initialState: GameState = {
+  cells: [],
+  elements: [],
+  order: [],
+  theme: "cookie",
+};
 
 export const boardSlice = createSlice({
   name: "board",
@@ -55,7 +63,9 @@ export const boardSlice = createSlice({
     generateGame: (state, action: PayloadAction<GameParams>) => {
       const { range, count, sort } = action.payload;
 
-      const order = generateOrder(range, count, sort);
+      const order = generateOrder(count, sort, range);
+
+      const theme = chooseUITheme();
 
       //TODO: make image picing more random?
       const images = shuffle([1, 2, 3, 4]);
@@ -63,7 +73,7 @@ export const boardSlice = createSlice({
       const elements = shuffle(order).map((v, i) => ({
         id: v.toString(),
         value: v,
-        imgPath: `/images/themes/cookie/element-${
+        imgPath: `/images/themes/${theme}/element-${
           i > images.length - 1 ? images[images.length - 1] : images[i]
         }.png`,
       }));
@@ -73,13 +83,14 @@ export const boardSlice = createSlice({
         value: v,
       }));
 
-      console.log("elements", elements);
-      console.log("cells", cells);
+      // console.log("elements", elements);
+      // console.log("cells", cells);
 
       state.cells = cells;
       state.elements = elements;
       //TODO: remove?
       state.order = order;
+      state.theme = theme;
     },
     putElementToCell: (
       state,
@@ -101,5 +112,6 @@ export const { generateGame, putElementToCell } = boardSlice.actions;
 
 export const selectElements = (state: RootState) => state.game.elements;
 export const selectCells = (state: RootState) => state.game.cells;
+export const selectUITheme = (state: RootState) => state.game.theme;
 
 export default boardSlice.reducer;

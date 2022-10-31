@@ -1,4 +1,4 @@
-export function shuffle(array: Array<string | number>) {
+export function shuffle<T>(array: Array<T>) {
   const copy = [...array];
 
   let currentIndex = copy.length,
