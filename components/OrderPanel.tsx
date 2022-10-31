@@ -1,3 +1,4 @@
+import { useDroppable } from "@dnd-kit/core";
 import styled from "@emotion/styled";
 import Image from "next/image";
 
@@ -5,9 +6,17 @@ const StyledImage = styled(Image)`
   border-radius: 10px;
 `;
 
-const ElementPlace = () => {
+type ElementPlaceProps = {
+  id: string;
+};
+
+const ElementPlace = ({ id }: ElementPlaceProps) => {
+  const { setNodeRef } = useDroppable({
+    id: "droppable" + id,
+  });
   return (
     <div
+      ref={setNodeRef}
       style={{
         borderRadius: "9999px",
         width: "130px",
@@ -47,12 +56,12 @@ export const OrderPanel = () => {
         fill
         alt=""
       />
-      <ElementPlace />
-      <ElementPlace />
-      <ElementPlace />
-      <ElementPlace />
-      <ElementPlace />
-      <ElementPlace />
+      <ElementPlace id={"1"} />
+      <ElementPlace id={"2"} />
+      <ElementPlace id={"3"} />
+      <ElementPlace id={"4"} />
+      <ElementPlace id={"5"} />
+      <ElementPlace id={"6"} />
     </div>
   );
 };
