@@ -12,7 +12,12 @@ import {
 import { OrderElement } from "./OrderElement";
 import { OrderPanel } from "./OrderPanel";
 import { useAppDispatch, useAppSelector } from "../redux";
-import { putElementToCell, selectElements } from "../redux/reducers";
+import {
+  putElementToCell,
+  generateGame,
+  selectElements,
+} from "../redux/reducers";
+import { useEffect } from "react";
 
 const Page = styled.div`
   position: relative;
@@ -54,13 +59,10 @@ export const Game = () => {
   const sensors = useSensors(mouseSensor, touchSensor);
 
   function handleDragEnd(event: DragEndEvent) {
-    const { over, active, activatorEvent } = event;
+    const { over, active } = event;
 
-    // If the item is dropped over a container, set it as the parent
-    // otherwise reset the parent to `null`
-    console.log("active", active);
-    console.log(activatorEvent);
-    console.log(over ? over.id : null);
+    // console.log("active", active);
+    // console.log(over ? over.id : null);
 
     if (over) {
       console.log("put");
@@ -72,6 +74,11 @@ export const Game = () => {
       );
     }
   }
+
+  useEffect(() => {
+    dispatch(generateGame({ count: 5, range: "9", sort: "ascending" }));
+  }, [dispatch]);
+
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <Page>
@@ -117,17 +124,17 @@ export const Game = () => {
               zIndex: 1,
             }}
           >
-            {elements.map(({ id, inCell }) => (
+            {elements.map((props) => (
               <div
-                key={id}
+                key={props.id}
                 style={{
                   position: "relative",
                   width: "150px",
                   height: "150px",
-                  visibility: inCell ? "hidden" : "unset",
+                  visibility: props.inCell ? "hidden" : "unset",
                 }}
               >
-                <OrderElement id={id} align={"center"} />
+                <OrderElement {...props} />
               </div>
             ))}
           </div>

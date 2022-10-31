@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { useAppSelector } from "../redux";
 import { selectCells } from "../redux/reducers";
-import { OrderCell } from "../redux/reducers";
+import { OrderCellType } from "../redux/reducers";
 
 const StyledImage = styled(Image)`
   border-radius: 10px;
 `;
 
-type OrderCellProps = OrderCell;
+type OrderCellProps = OrderCellType;
 
-const OrderCell = ({ id, elementId }: OrderCellProps) => {
+const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
   const { setNodeRef } = useDroppable({
     id: id,
   });
@@ -19,6 +19,9 @@ const OrderCell = ({ id, elementId }: OrderCellProps) => {
     <div
       ref={setNodeRef}
       style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         position: "relative",
         borderRadius: "9999px",
         width: "130px",
@@ -28,7 +31,21 @@ const OrderCell = ({ id, elementId }: OrderCellProps) => {
       }}
     >
       {elementId && (
-        <StyledImage priority src="/images/cookie-element-1.png" fill alt="" />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <StyledImage
+            priority
+            src="/images/cookie-element-1.png"
+            fill
+            alt=""
+          />
+          <div style={{ zIndex: 10, color: "black" }}>{value}</div>
+        </div>
       )}
     </div>
   );
@@ -63,8 +80,8 @@ export const OrderPanel = () => {
         fill
         alt=""
       />
-      {cells.map(({ id, elementId }) => (
-        <OrderCell key={id} id={id} elementId={elementId} />
+      {cells.map(({ id, value, elementId }) => (
+        <OrderCell key={id} id={id} elementId={elementId} value={value} />
       ))}
     </div>
   );
