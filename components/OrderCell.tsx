@@ -1,8 +1,9 @@
 import { useDroppable } from "@dnd-kit/core";
 import styled from "@emotion/styled";
-import { OrderCellType } from "../redux/reducers";
+import { OrderCellType, selectElementById } from "../redux/reducers";
 
 import Image from "next/image";
+import { useAppSelector } from "../redux";
 
 const StyledImage = styled(Image)`
   border-radius: 10px;
@@ -11,6 +12,10 @@ const StyledImage = styled(Image)`
 type OrderCellProps = OrderCellType;
 
 export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
+  const element = useAppSelector((state) =>
+    selectElementById(state, elementId ?? "")
+  );
+
   const { setNodeRef } = useDroppable({
     id: id,
   });
@@ -29,7 +34,7 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
         boxShadow: "inset 0px 4px 25px rgba(0, 0, 0, 0.25)",
       }}
     >
-      {elementId && (
+      {element && (
         <div
           style={{
             display: "flex",
@@ -39,7 +44,8 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
         >
           <StyledImage
             priority
-            src="/images/cookie-element-1.png"
+            // src="/images/cookie-element-1.png"
+            src={element.imgPath}
             fill
             alt=""
           />

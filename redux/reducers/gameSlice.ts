@@ -94,5 +94,7 @@ export const { generateGame, putElementToCell } = boardSlice.actions;
 export const selectElements = (state: RootState) => state.game.elements;
 export const selectCells = (state: RootState) => state.game.cells;
 export const selectUITheme = (state: RootState) => state.game.theme;
+export const selectElementById = (state: RootState, id: string) =>
+  state.game.elements.find((el) => el.id === id);
 
 export default boardSlice.reducer;

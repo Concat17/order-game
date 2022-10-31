@@ -45,9 +45,9 @@ export const Game = () => {
     }
   }
 
-  useEffect(() => {
-    dispatch(generateGame({ count: 5, range: 9, sort: "ascending" }));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(generateGame({ count: 5, range: 9, sort: "ascending" }));
+  // }, [dispatch]);
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>

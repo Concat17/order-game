@@ -1,7 +1,7 @@
 import Head from "next/head";
 
-import { Game } from "../components";
 import NonSSRWrapper from "../components/NonSSRWrapper";
+import { Root } from "../components/Root";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
         </Head>
 
         <main>
-          <Game />
+          <Root />
         </main>
       </div>
     </NonSSRWrapper>
