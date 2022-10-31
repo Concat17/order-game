@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UITheme } from "../../types";
 import { shuffle } from "../../utils";
 import { RootState } from "../store";
-import { generateOrder } from "../utils";
-import { chooseUITheme } from "../utils/chooseUITheme";
+import { chooseImageSprites, chooseUITheme, generateOrder } from "../utils";
 
 export type OrderCellType = {
   id: string;
@@ -31,24 +30,6 @@ interface GameState {
   theme: UITheme;
 }
 
-// const initialState: GameState = {
-//   cells: [
-//     { id: "1", value: 1 },
-//     { id: "2", value: 2 },
-//     { id: "3", value: 3 },
-//     { id: "4", value: 4 },
-//     { id: "5", value: 5 },
-//   ],
-//   elements: [
-//     { id: "1", value: 1 },
-//     { id: "2", value: 2 },
-//     { id: "3", value: 3 },
-//     { id: "4", value: 4 },
-//     { id: "5", value: 5 },
-//   ],
-//   order: [1, 2, 3, 4, 5],
-// };
-
 const initialState: GameState = {
   cells: [],
   elements: [],
@@ -68,7 +49,7 @@ export const boardSlice = createSlice({
       const theme = chooseUITheme();
 
       //TODO: make image picing more random?
-      const images = shuffle([1, 2, 3, 4]);
+      const images = chooseImageSprites(theme, count);
 
       const elements = shuffle(order).map((v, i) => ({
         id: v.toString(),
