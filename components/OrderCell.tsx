@@ -20,26 +20,16 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
     id: id,
   });
   return (
-    <div
-      ref={setNodeRef}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        borderRadius: "9999px",
-        width: "130px",
-        height: "130px",
-        background: "rgba(0, 0, 0, 0.06)",
-        boxShadow: "inset 0px 4px 25px rgba(0, 0, 0, 0.25)",
-      }}
-    >
-      {element && (
+    <div>
+      {element ? (
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            position: "relative",
+            width: "130px",
+            height: "130px",
           }}
         >
           <StyledImage
@@ -51,6 +41,21 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
           />
           <div style={{ zIndex: 10, color: "black" }}>{value}</div>
         </div>
+      ) : (
+        <div
+          ref={setNodeRef}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            borderRadius: "9999px",
+            width: "130px",
+            height: "130px",
+            background: "rgba(0, 0, 0, 0.06)",
+            boxShadow: "inset 0px 4px 25px rgba(0, 0, 0, 0.25)",
+          }}
+        />
       )}
     </div>
   );

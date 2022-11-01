@@ -14,12 +14,14 @@ import {
   putElementToCell,
   generateGame,
   selectElements,
+  selectIsWin,
 } from "../redux/reducers";
 import { useEffect } from "react";
 import { Page } from "./Page";
 
 export const Game = () => {
   const elements = useAppSelector(selectElements);
+  const isWin = useAppSelector(selectIsWin);
 
   const dispatch = useAppDispatch();
 
@@ -30,9 +32,6 @@ export const Game = () => {
 
   function handleDragEnd(event: DragEndEvent) {
     const { over, active } = event;
-
-    // console.log("active", active);
-    // console.log(over ? over.id : null);
 
     if (over) {
       console.log("put");
@@ -45,12 +44,9 @@ export const Game = () => {
     }
   }
 
-  // useEffect(() => {
-  //   dispatch(generateGame({ count: 5, range: 9, sort: "ascending" }));
-  // }, [dispatch]);
-
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      {isWin && <div>WIN!!!</div>}
       <Page>
         <div
           style={{

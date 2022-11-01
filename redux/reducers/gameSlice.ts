@@ -96,5 +96,7 @@ export const selectCells = (state: RootState) => state.game.cells;
 export const selectUITheme = (state: RootState) => state.game.theme;
 export const selectElementById = (state: RootState, id: string) =>
   state.game.elements.find((el) => el.id === id);
+export const selectIsWin = (state: RootState) =>
+  state.game.cells.every((c) => !!c.elementId);
 
 export default boardSlice.reducer;
