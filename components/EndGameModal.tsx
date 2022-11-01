@@ -42,7 +42,7 @@ const ImageContainer = styled.div<{
   bottom: ${(props) => (props.bottom ? props.bottom : "unset")};
   left: ${(props) => (props.left ? props.left : "unset")};
 
-  transform: ${(props) => (props.transform ? props.transform : "unset")}; ;
+  transform: ${(props) => (props.transform ? props.transform : "unset")};
 `;
 
 const Modal = styled.div`

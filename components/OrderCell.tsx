@@ -4,6 +4,7 @@ import { OrderCellType, selectElementById } from "../redux/reducers";
 
 import Image from "next/image";
 import { useAppSelector } from "../redux";
+import { Text } from "../styles";
 
 const StyledImage = styled(Image)`
   border-radius: 10px;
@@ -39,7 +40,9 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
             fill
             alt=""
           />
-          <div style={{ zIndex: 10, color: "black" }}>{value}</div>
+          <div style={{ zIndex: 10 }}>
+            <Text>{value}</Text>
+          </div>
         </div>
       ) : (
         <div
@@ -52,6 +55,7 @@ export const OrderCell = ({ id, value, elementId }: OrderCellProps) => {
             borderRadius: "9999px",
             width: "130px",
             height: "130px",
+
             background: "rgba(0, 0, 0, 0.06)",
             boxShadow: "inset 0px 4px 25px rgba(0, 0, 0, 0.25)",
           }}

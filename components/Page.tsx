@@ -7,6 +7,8 @@ import { selectUITheme } from "../redux/reducers";
 const StyledPage = styled.div`
   position: relative;
   height: 100vh;
+
+  overflow: hidden;
 `;
 
 const BG = styled.div<{ color: string }>`
@@ -30,6 +32,7 @@ const ImageContainer = styled.div<{
   right?: string;
   bottom?: string;
   left?: string;
+  transform?: string;
 }>`
   position: absolute;
 
@@ -39,6 +42,8 @@ const ImageContainer = styled.div<{
   right: ${(props) => (props.right ? props.right : "unset")};
   bottom: ${(props) => (props.bottom ? props.bottom : "unset")};
   left: ${(props) => (props.left ? props.left : "unset")};
+
+  transform: ${(props) => (props.transform ? props.transform : "unset")};
 `;
 
 type PageProps = {
@@ -51,7 +56,7 @@ const CookieBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/cookie-left-bg.png"
+        src="/images/themes/cookie/left-bg.svg"
         fill
         alt=""
       />
@@ -60,7 +65,7 @@ const CookieBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/cookie-right-bg.png"
+        src="/images/themes/cookie/right-bg.svg"
         fill
         alt=""
       />
@@ -70,22 +75,22 @@ const CookieBG = () => (
 
 const CoinBG = () => (
   <BG color={"#3A1F36"}>
-    <ImageContainer top={"0"} left={"0"}>
+    <ImageContainer top={"0"} left={"0"} width="400px" height="750px">
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/coin/left-bg.png"
+        src="/images/themes/coin/left-bg.svg"
         fill
-        alt=""
+        alt="coin-bg-left"
       />
     </ImageContainer>
-    <ImageContainer top={"0"} right={"0"} width="400px" height="450px">
+    <ImageContainer top={"0"} right={"0"} width="300px" height="550px">
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/coin/right-bg.png"
+        src="/images/themes/coin/right-bg.svg"
         fill
-        alt=""
+        alt="coin-bg-right"
       />
     </ImageContainer>
   </BG>
@@ -97,7 +102,7 @@ const WinterBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/winter/left-top-bg.png"
+        src="/images/themes/winter/left-top-bg.svg"
         fill
         alt=""
       />
@@ -107,7 +112,7 @@ const WinterBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/winter/left-bottom-bg.png"
+        src="/images/themes/winter/left-bottom-bg.svg"
         fill
         alt=""
       />
@@ -117,7 +122,7 @@ const WinterBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/winter/right-top-bg.png"
+        src="/images/themes/winter/right-top-bg.svg"
         fill
         alt=""
       />
@@ -126,7 +131,7 @@ const WinterBG = () => (
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/winter/right-bottom-bg.png"
+        src="/images/themes/winter/right-bottom-bg.svg"
         fill
         alt=""
       />
@@ -136,40 +141,40 @@ const WinterBG = () => (
 
 const FlowerBG = () => (
   <BG color={"#2D3539"}>
-    <ImageContainer top={"0"} left={"0"}>
+    <ImageContainer top={"0"} left={"0"} transform={"translate(-20%, 0)}"}>
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/flower/left-top-bg.png"
+        src="/images/themes/flower/left-top-bg.svg"
         fill
         alt=""
       />
     </ImageContainer>
 
-    <ImageContainer bottom={"0"} left={"0"}>
+    <ImageContainer bottom={"0"} left={"0"} transform={"translate(-20%, 0)}"}>
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/flower/left-bottom-bg.png"
+        src="/images/themes/flower/left-bottom-bg.svg"
         fill
         alt=""
       />
     </ImageContainer>
 
-    <ImageContainer top={"0"} right={"0"}>
+    <ImageContainer top={"0"} right={"0"} transform={"translate(20%, 0)}"}>
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/flower/right-top-bg.png"
+        src="/images/themes/flower/right-top-bg.svg"
         fill
         alt=""
       />
     </ImageContainer>
-    <ImageContainer bottom={"0"} right={"0"}>
+    <ImageContainer bottom={"0"} right={"0"} transform={"translate(30%, 0)}"}>
       <StyledImage
         draggable="false"
         priority
-        src="/images/themes/flower/right-bottom-bg.png"
+        src="/images/themes/flower/right-bottom-bg.svg"
         fill
         alt=""
       />

@@ -12,9 +12,7 @@ export const OrderPanel = () => {
   const cells = useAppSelector(selectCells);
 
   const theme = useAppSelector(selectUITheme);
-  {
-    /* TODO: radial-gradient doen't work properly */
-  }
+
   return (
     <div
       style={{
@@ -22,7 +20,7 @@ export const OrderPanel = () => {
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
-        gap: "4px",
+        gap: "20px",
         width: "888px",
         height: "222px",
         borderRadius: "50px",

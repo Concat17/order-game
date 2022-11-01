@@ -18,10 +18,23 @@ import {
   selectIsWin,
   selectSort,
 } from "../redux/reducers";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Page } from "./Page";
 import { EndGameModal } from "./EndGameModal";
 import { OrderArrow } from "./OrderArrow";
+
+const generateAlign = (count: number) => {
+  switch (count) {
+    case 2:
+      return ["center", "center"];
+    case 3:
+      return ["center", "start", "center"];
+    case 4:
+      return ["center", "start", "center", "start"];
+    default:
+      return ["center", "start", "end", "start", "center"];
+  }
+};
 
 export const Game = () => {
   const elements = useAppSelector(selectElements);
@@ -33,12 +46,17 @@ export const Game = () => {
   useEffect(() => {
     dispatch(
       generateGame({
-        count: 2,
+        count: 5,
         range: 9,
         sort: "descending",
       })
     );
   }, [dispatch]);
+
+  const align = useMemo(
+    () => generateAlign(elements.length),
+    [elements.length]
+  );
 
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
@@ -80,24 +98,15 @@ export const Game = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
+              gap: "50px",
               width: "100%",
               height: "300px",
               zIndex: 1,
             }}
           >
-            {elements.map((props) => (
-              <div
-                key={props.id}
-                style={{
-                  position: "relative",
-                  width: "150px",
-                  height: "150px",
-                  visibility: props.inCell ? "hidden" : "unset",
-                }}
-              >
-                <OrderElement {...props} />
-              </div>
+            {elements.map((props, i) => (
+              <OrderElement key={props.id} align={align[i]} {...props} />
             ))}
           </div>
           <div>

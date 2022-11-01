@@ -9,6 +9,8 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { SteppedSlider } from "./SteppedSlider";
 
+import { Text } from "../styles";
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -39,21 +41,6 @@ const ImageContainer = styled.div<{
   right: ${(props) => (props.right ? props.right : "unset")};
   bottom: ${(props) => (props.bottom ? props.bottom : "unset")};
   left: ${(props) => (props.left ? props.left : "unset")};
-`;
-
-const Text = styled.span`
-  font-family: "Calibri";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 44px;
-
-  z-index: 1;
-
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #242546;
-
-  -webkit-text-fill-color: white;
 `;
 
 type OrderArrowProps = {
