@@ -2,8 +2,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, CirceRounded-Regular BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+ 
 }
 
 a {
@@ -24,3 +25,19 @@ a {
     background: black;
   }
 }
+
+@font-face {
+  font-family: 'Circe Rounded';
+  src: url('../asset/CirceRounded-Regular.ttf');
+   
+} 
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('../asset/helvetica.ttf'); 
+} 
+
+@font-face {
+  font-family: 'Calibri';
+  src: url('../asset/calibri.ttf'); 
+} 

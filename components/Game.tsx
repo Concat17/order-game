@@ -19,6 +19,7 @@ import {
 } from "../redux/reducers";
 import { useEffect } from "react";
 import { Page } from "./Page";
+import { EndGameModal } from "./EndGameModal";
 
 export const Game = () => {
   const elements = useAppSelector(selectElements);
@@ -47,7 +48,8 @@ export const Game = () => {
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      {isWin && <div>WIN!!!</div>}
+      {isWin && <EndGameModal />}
+
       <Page>
         <div
           style={{
