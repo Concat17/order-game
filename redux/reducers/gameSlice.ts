@@ -86,10 +86,11 @@ export const boardSlice = createSlice({
       cell.elementId = elementId;
       element.inCell = true;
     },
+    restart: () => initialState,
   },
 });
 
-export const { generateGame, putElementToCell } = boardSlice.actions;
+export const { generateGame, putElementToCell, restart } = boardSlice.actions;
 
 export const selectElements = (state: RootState) => state.game.elements;
 export const selectCells = (state: RootState) => state.game.cells;

@@ -12,6 +12,7 @@ import { OrderPanel } from "./OrderPanel";
 import { useAppDispatch, useAppSelector } from "../redux";
 import {
   putElementToCell,
+  restart,
   generateGame,
   selectElements,
   selectIsWin,
