@@ -16,16 +16,29 @@ import {
   generateGame,
   selectElements,
   selectIsWin,
+  selectSort,
 } from "../redux/reducers";
 import { useEffect } from "react";
 import { Page } from "./Page";
 import { EndGameModal } from "./EndGameModal";
+import { OrderArrow } from "./OrderArrow";
 
 export const Game = () => {
   const elements = useAppSelector(selectElements);
   const isWin = useAppSelector(selectIsWin);
+  const sort = useAppSelector(selectSort);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      generateGame({
+        count: 2,
+        range: 9,
+        sort: "descending",
+      })
+    );
+  }, [dispatch]);
 
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
@@ -36,7 +49,6 @@ export const Game = () => {
     const { over, active } = event;
 
     if (over) {
-      console.log("put");
       dispatch(
         putElementToCell({
           cellId: over.id.toString(),
@@ -88,7 +100,10 @@ export const Game = () => {
               </div>
             ))}
           </div>
-          <OrderPanel />
+          <div>
+            <OrderArrow sort={sort} />
+            <OrderPanel />
+          </div>
         </div>
       </Page>
     </DndContext>

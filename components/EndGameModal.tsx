@@ -13,7 +13,7 @@ const Page = styled.div`
   right: 0;
   bottom: 0;
 
-  z-index: 1;
+  z-index: 100;
 
   display: flex;
   justify-content: center;
@@ -47,6 +47,8 @@ const ImageContainer = styled.div<{
 
 const Modal = styled.div`
   position: relative;
+
+  z-index: 10;
 
   padding: 20px;
 

@@ -1,5 +1,5 @@
 import { shuffle } from "../../utils";
-
+// TODO: put "ascending" | "descending", to type file
 export const generateOrder = (
   count: number,
   sort: "ascending" | "descending",

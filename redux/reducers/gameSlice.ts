@@ -28,6 +28,7 @@ interface GameState {
   elements: OrderElementType[];
   order: Array<string | number>;
   theme: UITheme;
+  sort: "ascending" | "descending";
 }
 
 const initialState: GameState = {
@@ -35,6 +36,7 @@ const initialState: GameState = {
   elements: [],
   order: [],
   theme: "cookie",
+  sort: "ascending",
 };
 
 export const boardSlice = createSlice({
@@ -72,6 +74,7 @@ export const boardSlice = createSlice({
       //TODO: remove?
       state.order = order;
       state.theme = theme;
+      state.sort = sort;
     },
     putElementToCell: (
       state,
@@ -99,5 +102,6 @@ export const selectElementById = (state: RootState, id: string) =>
   state.game.elements.find((el) => el.id === id);
 export const selectIsWin = (state: RootState) =>
   state.game.cells.every((c) => !!c.elementId);
+export const selectSort = (state: RootState) => state.game.sort;
 
 export default boardSlice.reducer;
