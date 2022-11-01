@@ -95,6 +95,10 @@ const Button = styled.button`
   background: #2bd600;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
+
+  &:hover {
+    background: #2f9558;
+  }
 `;
 
 export const EndGameModal = () => {

@@ -74,7 +74,7 @@ export const Game = () => {
     }
   }
 
-  function handleDragStart(event: DragEndEvent) {
+  function handleDragStart() {
     // on drag sound
     // let audio = new Audio("...");
     // audio.play();

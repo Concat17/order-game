@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useAppDispatch } from "../redux";
 import { generateGame } from "../redux/reducers";
@@ -102,6 +102,10 @@ const Button = styled.button`
   background: #38df7a;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
+
+  &:hover {
+    background: #2f9558;
+  }
 `;
 
 const SliderContainer = styled.div<{ width?: string }>`
