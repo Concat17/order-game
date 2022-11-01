@@ -74,8 +74,18 @@ export const Game = () => {
     }
   }
 
+  function handleDragStart(event: DragEndEvent) {
+    // on drag sound
+    // let audio = new Audio("...");
+    // audio.play();
+  }
+
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       {isWin && <EndGameModal />}
 
       <Page>

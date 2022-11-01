@@ -7,11 +7,9 @@ import { StartMenu } from "./StartMenu";
 
 export const Root = () => {
   useEffect(() => {
-    let audio = new Audio("/christmas.mp3");
-
-    const start = () => {
-      audio.play();
-    };
+    //bg sound
+    // let audio = new Audio("...");
+    // audio.play();
   }, []);
 
   const cells = useAppSelector(selectCells);
