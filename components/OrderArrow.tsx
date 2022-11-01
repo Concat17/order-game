@@ -1,13 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../redux";
-import {
-  putElementToCell,
-  generateGame,
-  selectElements,
-} from "../redux/reducers";
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { SteppedSlider } from "./SteppedSlider";
 
 import { Text } from "../styles";
 
@@ -23,13 +15,7 @@ const Container = styled.div`
   width: 400px;
 `;
 
-const StyledImage = styled(Image)`
-  border-radius: 10px;
-`;
-//TODO: make reponsive width and height
-const ImageContainer = styled.div<{
-  width?: string;
-  height?: string;
+const ArrowContainer = styled.div<{
   top?: string;
   right?: string;
   bottom?: string;
@@ -50,14 +36,14 @@ type OrderArrowProps = {
 export const OrderArrow = ({ sort }: OrderArrowProps) => {
   return (
     <Container>
-      <ImageContainer top={"0"} left={"0"} right={"0"} bottom="0">
-        <StyledImage
+      <ArrowContainer top={"0"} left={"0"} right={"0"} bottom="0">
+        <Image
           draggable="false"
           src="/images/order-arrow.svg"
           fill
-          alt="BG"
+          alt="Order arrow"
         />
-      </ImageContainer>
+      </ArrowContainer>
       {sort === "ascending" ? (
         <Text>По возростанию</Text>
       ) : (

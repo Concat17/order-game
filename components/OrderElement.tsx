@@ -1,18 +1,11 @@
 import { useDraggable } from "@dnd-kit/core";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React from "react";
+
 import { useAppSelector } from "../redux";
 import { OrderElementType, selectUITheme } from "../redux/reducers";
 import { Text } from "../styles";
-
-const StyledImage = styled(Image)<{ align?: string }>`
-  border: none;
-  background-color: "transparent";
-  transform: translate(0, 0);
-
-  position: absolute;
-`;
 
 const ThreadContainer = styled.div`
   position: absolute;
@@ -24,13 +17,24 @@ const ThreadContainer = styled.div`
   height: 40px;
 `;
 
-const StemContainer = styled.div`
-  position: fixed;
+const StyledOrderElement = styled.div<{
+  align: string;
+  inCell?: boolean;
+  transform?: string;
+}>`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  top: 750px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 150px;
+  height: 150px;
+
+  z-index: 2;
+
+  align-self: ${(props) => props.align};
+  visibility: ${(props) => (props.inCell ? "hidden" : "unset")};
+  transform: ${(props) => (props.transform ? props.transform : "unset")};
 `;
 
 type OrderElementProps = OrderElementType & { align: string };
@@ -47,31 +51,23 @@ export const OrderElement = ({
   });
 
   const theme = useAppSelector(selectUITheme);
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
+
   return (
-    <div
+    <StyledOrderElement
       ref={setNodeRef}
-      style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "150px",
-        height: "150px",
-        visibility: inCell ? "hidden" : "unset",
-        alignSelf: align,
-        ...style,
-      }}
+      align={align}
+      inCell={inCell}
+      transform={
+        transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+          : undefined
+      }
       {...listeners}
       {...attributes}
     >
       {theme === "winter" && (
         <ThreadContainer>
-          <StyledImage
+          <Image
             priority
             src="/images/themes/winter/toy-thread.svg"
             fill
@@ -79,9 +75,9 @@ export const OrderElement = ({
           />
         </ThreadContainer>
       )}
+      <Image priority src={imgPath} fill alt="" />
 
-      <StyledImage priority src={imgPath} fill alt="" />
       <div style={{ zIndex: 10, color: "black" }}>{<Text>{value}</Text>}</div>
-    </div>
+    </StyledOrderElement>
   );
 };

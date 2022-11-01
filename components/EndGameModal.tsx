@@ -1,10 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../redux";
-
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { EndGameModalTitle } from "./EndGameModalTitle";
+
+import { useAppDispatch } from "../redux";
 import { restart } from "../redux/reducers";
+import { EndGameModalTitle } from "./EndGameModalTitle";
 
 const Page = styled.div`
   position: absolute;
@@ -20,13 +19,7 @@ const Page = styled.div`
   align-items: center;
 `;
 
-const StyledImage = styled(Image)`
-  border-radius: 10px;
-`;
-//TODO: make reponsive width and height
-const ImageContainer = styled.div<{
-  width?: string;
-  height?: string;
+const StarContainer = styled.div<{
   top?: string;
   right?: string;
   bottom?: string;
@@ -34,8 +27,6 @@ const ImageContainer = styled.div<{
   transform?: string;
 }>`
   position: absolute;
-
-  /* z-index: -1; */
 
   top: ${(props) => (props.top ? props.top : "unset")};
   right: ${(props) => (props.right ? props.right : "unset")};
@@ -106,71 +97,60 @@ const Button = styled.button`
   border-radius: 20px;
 `;
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  gap: 30px;
-`;
-
 export const EndGameModal = () => {
   const dispatch = useAppDispatch();
 
   return (
     <Page>
       <Modal>
-        <ImageContainer
+        <StarContainer
           top={"0"}
           left={"0"}
           transform={"translate(-50%, -20%)}"}
         >
-          <StyledImage
+          <Image
             draggable="false"
             src="/images/end-game-star.svg"
             width={"200"}
             height={"200"}
-            alt="BG"
+            alt="Star"
           />
-        </ImageContainer>
-        <ImageContainer
+        </StarContainer>
+        <StarContainer
           bottom={"0"}
           left={"0"}
           transform={"translate(-50%, 25%)}"}
         >
-          <StyledImage
+          <Image
             draggable="false"
             src="/images/end-game-star.svg"
             width={"300"}
             height={"300"}
-            alt="BG"
+            alt="Star"
           />
-        </ImageContainer>
-        <ImageContainer
-          top={"0"}
-          right={"0"}
-          transform={"translate(40%, 35%)}"}
-        >
-          <StyledImage
+        </StarContainer>
+        <StarContainer top={"0"} right={"0"} transform={"translate(40%, 35%)}"}>
+          <Image
             draggable="false"
             src="/images/end-game-star.svg"
             width={"300"}
             height={"300"}
-            alt="BG"
+            alt="Star"
           />
-        </ImageContainer>
-        <ImageContainer
+        </StarContainer>
+        <StarContainer
           bottom={"0"}
           right={"0"}
           transform={"translate(45%, 25%)}"}
         >
-          <StyledImage
+          <Image
             draggable="false"
             src="/images/end-game-star.svg"
             width={"170"}
             height={"170"}
-            alt="BG"
+            alt="Star"
           />
-        </ImageContainer>
+        </StarContainer>
         <ModalContent>
           <EndGameModalTitle text="Победа!" />
           <Text>Молодец! Ты успешно справился с заданием!</Text>
@@ -180,4 +160,3 @@ export const EndGameModal = () => {
     </Page>
   );
 };
-// Circe Rounded Alt 'Calibri' 'Helvetica'

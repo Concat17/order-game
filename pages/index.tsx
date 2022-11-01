@@ -5,7 +5,6 @@ import { Root } from "../components/Root";
 
 export default function Home() {
   return (
-    // TODO: figure out needness of this wrapper
     <NonSSRWrapper>
       <div>
         <Head>

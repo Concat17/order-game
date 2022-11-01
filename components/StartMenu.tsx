@@ -1,12 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../redux";
-import {
-  putElementToCell,
-  generateGame,
-  selectElements,
-} from "../redux/reducers";
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+import { useAppDispatch } from "../redux";
+import { generateGame } from "../redux/reducers";
 import { SteppedSlider } from "./SteppedSlider";
 
 const Page = styled.div`
@@ -18,13 +15,7 @@ const Page = styled.div`
   justify-content: center;
 `;
 
-const StyledImage = styled(Image)`
-  border-radius: 10px;
-`;
-//TODO: make reponsive width and height
-const ImageContainer = styled.div<{
-  width?: string;
-  height?: string;
+export const BG = styled.div<{
   top?: string;
   right?: string;
   bottom?: string;
@@ -33,7 +24,6 @@ const ImageContainer = styled.div<{
   position: absolute;
 
   z-index: -1;
-  background-color: darkblue;
 
   top: ${(props) => (props.top ? props.top : "unset")};
   right: ${(props) => (props.right ? props.right : "unset")};
@@ -127,6 +117,10 @@ const Flex = styled.div`
   gap: 30px;
 `;
 
+const Gap = styled.div`
+  margin-bottom: 50px;
+`;
+
 export const StartMenu = () => {
   const dispatch = useAppDispatch();
 
@@ -136,25 +130,40 @@ export const StartMenu = () => {
 
   return (
     <Page>
-      <ImageContainer top={"0"} left={"0"} right={"0"} bottom="0">
-        <StyledImage
+      <BG top={"0"} left={"0"} right={"0"} bottom="0">
+        <Image
           draggable="false"
           src="/images/start-menu-bg.jpg"
           fill
           alt="BG"
         />
-      </ImageContainer>
+      </BG>
 
       <Modal>
         <ModalContent>
           <SliderContainer>
-            <Text>Кол-во предметов</Text>
-            <SteppedSlider range={[2, 3, 4, 5]} onChange={(n) => setCount(n)} />
+            <Gap>
+              <Text>Кол-во предметов</Text>
+            </Gap>
+
+            <SteppedSlider
+              range={[{ value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }]}
+              onChange={(n) => setCount(n)}
+            />
           </SliderContainer>
           <SliderContainer width="100%">
-            <Text>Кол-во предметов</Text>
+            <Gap>
+              <Text>Значения</Text>
+            </Gap>
             <SteppedSlider
-              range={[0, 9, 19, 50, 99, 999]}
+              range={[
+                { value: 0, label: "A" },
+                { value: 9 },
+                { value: 19 },
+                { value: 50 },
+                { value: 99 },
+                { value: 999 },
+              ]}
               onChange={(n) => setRange(n)}
             />
           </SliderContainer>

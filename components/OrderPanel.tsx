@@ -1,11 +1,19 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
+
 import { useAppSelector } from "../redux";
 import { selectCells, selectUITheme } from "../redux/reducers";
 import { OrderCell } from "./OrderCell";
 
-const StyledImage = styled(Image)`
-  border-radius: 10px;
+const Panel = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 20px;
+  width: 888px;
+  height: 222px;
+  border-radius: 50px;
 `;
 
 export const OrderPanel = () => {
@@ -14,19 +22,8 @@ export const OrderPanel = () => {
   const theme = useAppSelector(selectUITheme);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        gap: "20px",
-        width: "888px",
-        height: "222px",
-        borderRadius: "50px",
-      }}
-    >
-      <StyledImage
+    <Panel>
+      <Image
         draggable="false"
         priority
         src={`/images/themes/${theme}/order-panel.png`}
@@ -36,7 +33,6 @@ export const OrderPanel = () => {
       {cells.map(({ id, value, elementId }) => (
         <OrderCell key={id} id={id} elementId={elementId} value={value} />
       ))}
-    </div>
+    </Panel>
   );
 };
-// ["/images/themes/cookie/order-panel.png", ]

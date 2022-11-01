@@ -1,5 +1,5 @@
 import { shuffle } from "../../utils";
-// TODO: put "ascending" | "descending", to type file
+
 export const generateOrder = (
   count: number,
   sort: "ascending" | "descending",
@@ -10,9 +10,21 @@ export const generateOrder = (
   const shuffledNumbers = shuffle<number | string>(values);
   const pickedValues = shuffledNumbers.slice(0, count);
 
-  return sort === "ascending"
-    ? pickedValues.sort()
-    : pickedValues.sort().reverse();
+  const sorted = pickedValues.sort((a, b) => {
+    if (typeof a === "number" && typeof b === "number") {
+      return a - b;
+    } else {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    }
+  });
+
+  return sort === "ascending" ? sorted : sorted.reverse();
 };
 
 const generateNumbersRange = (range: number) => {

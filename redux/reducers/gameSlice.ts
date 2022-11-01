@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { UITheme } from "../../types";
 import { shuffle } from "../../utils";
 import { RootState } from "../store";
@@ -26,7 +27,6 @@ export type GameParams = {
 interface GameState {
   cells: OrderCellType[];
   elements: OrderElementType[];
-  order: Array<string | number>;
   theme: UITheme;
   sort: "ascending" | "descending";
 }
@@ -34,7 +34,6 @@ interface GameState {
 const initialState: GameState = {
   cells: [],
   elements: [],
-  order: [],
   theme: "cookie",
   sort: "ascending",
 };
@@ -50,7 +49,6 @@ export const boardSlice = createSlice({
 
       const theme = chooseUITheme();
 
-      //TODO: make image picing more random?
       const images = chooseImageSprites(theme, count);
 
       const elements = shuffle(order).map((v, i) => ({
@@ -66,13 +64,9 @@ export const boardSlice = createSlice({
         value: v,
       }));
 
-      // console.log("elements", elements);
-      // console.log("cells", cells);
-
       state.cells = cells;
       state.elements = elements;
-      //TODO: remove?
-      state.order = order;
+
       state.theme = theme;
       state.sort = sort;
     },
